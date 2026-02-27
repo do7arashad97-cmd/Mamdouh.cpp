@@ -1,0 +1,166 @@
+#include <iostream>
+using namespace std;
+class Node
+{
+public:
+    int Data;
+    Node* Next;
+};
+
+class LinkedList
+{
+public:
+    Node* Head;
+    LinkedList()
+    {
+        Head = NULL;
+    }
+
+    bool IsEmpty()
+    {
+        return (Head == NULL);
+    }
+
+    void InsertFirst(int NewValue)
+    {
+        Node* NewNode = new Node;
+        NewNode->Data = NewValue;
+        if (IsEmpty())
+        {
+            NewNode->Next = NULL;
+            Head = NewNode;
+        }
+        else
+        {
+            NewNode->Next = Head;
+            Head = NewNode;
+        }
+    }
+    void InsertMiddel(int item, int NewValue)
+    {
+        Node* NewNode = new Node;
+        NewNode->Data = NewValue;
+        Node* Temp = Head;
+        if (IsEmpty())
+        {
+            NewNode->Next = NULL;
+            Head = NewNode;
+        }
+        else
+        {
+            while (Temp != NULL && Temp->Next->Data != item)
+            {
+                Temp = Temp->Next;
+            }
+            NewNode->Next = Temp->Next;
+            Temp->Next = NewNode;
+        }
+    }
+
+    void Display()
+    {
+        Node* Temp = Head;
+        while (Temp != NULL)
+        {
+            cout << Temp->Data << "->";
+            Temp = Temp->Next;
+        }
+        cout << endl;
+    }
+
+    int Counter_In_List()
+    {
+        int count = 0;
+        Node* Temp = Head;
+        while (Temp != NULL)
+        {
+            count++;
+            Temp = Temp->Next;
+        }
+        return count;
+    }
+
+
+};
+
+class Stack
+{
+public:
+    Node* top;
+    Stack()
+    {
+        top = NULL;
+    }
+    bool ISEmpty()
+    {
+        return(top == NULL);
+    }
+    void Push(int item)
+    {
+        Node* newnode = new Node();
+        newnode->Data = item;
+        newnode->Next = (ISEmpty()) ? NULL : top;//conditional Operator
+        //if condition✔
+        /*if (ISEmpty())
+        {
+            newnode->Next = NULL;
+        }
+        else
+        {
+            newnode->Next = top;
+        }*/
+        top = newnode;
+    }
+    void Pop()
+    {
+        if (ISEmpty())
+        {
+            cout << "⚠Stack is empty.\n";
+        }
+        Node* delptr = top;
+        cout << "Popped item:" << top->Data << endl;
+        top = top->Next;
+        delete delptr;
+
+    }
+    void disPlay()
+    {
+        Node* Temp = top;
+        while (Temp != NULL)
+        {
+            cout << Temp->Data << "->";
+            Temp = Temp->Next;
+        }
+        cout << endl;
+    }
+    bool Isfull()
+    {
+        Node* ptr = new Node();
+        if (ptr == NULL)
+            cout << "The stack is full,cannot add more item in list\n";
+        return true;
+    }
+};
+
+int main()
+{
+    Stack st;
+   cout << "-----------------------------------------------\n";
+    int item;
+    for (int i = 1; i <= 3; i++)
+    {
+        cout << "PLZ Enter item ["<<i<< "] to Push \n";
+        cin >> item;
+        st.Push(item);
+        st.disPlay();
+    }
+    cout << "-----------------------------------------------\n";
+    cout << "Now we will pop one item from Stack👇\n";
+    st.Pop();
+    st.disPlay();
+
+    st.Isfull();
+
+    system("pause> 0");
+    return 0;
+}
